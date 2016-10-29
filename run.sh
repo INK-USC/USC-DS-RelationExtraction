@@ -1,4 +1,4 @@
-Data=bio_candidates
+Data=BioInfer
 echo $Data
 
 mkdir -pv data/intermediate/$Data/em
