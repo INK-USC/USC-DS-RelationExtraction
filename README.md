@@ -12,6 +12,7 @@ We will take Ubuntu for example.
 * python 2.7
 ```
 $ sudo apt-get install python
+$ pip install pexpect
 ```
 
 * [stanford coreNLP 3.5.2](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/dasmith/stanford-corenlp-python). Please put the library in folder DataProcessor/.
