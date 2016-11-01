@@ -74,7 +74,7 @@ def parse(sentences, g, lock, procNum, isTrain):
     #g = open(output, 'w')
     rmCount = 0
     discardRmCount = 0
-    parser = NLPParser('RelationExtraction/DataProcessor/stanford-corenlp-python/corenlp/stanford-corenlp-full-2015-04-20')
+    parser = NLPParser('code/DataProcessor/stanford-corenlp-python/corenlp/stanford-corenlp-full-2015-04-20')
     count=0
     buffered = []
     start = time.time()
