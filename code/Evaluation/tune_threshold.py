@@ -114,9 +114,9 @@ if __name__ == "__main__":
 	with open(file_name, 'w') as f0:
 		for i in range(len(threshold_list_str)):
 			if _method == 'line':
-				f0.write(recall_list[i] + '\t' + str(float(prec_list[i]) - 0.01) + '\n')
+				f0.write(recall_list[i] + '\t' + str(float(prec_list[i])) + '\n')
 			elif _method == 'retype':
-				f0.write(str(float(recall_list[i]) + 0.02) + '\t' + str(float(prec_list[i]) + 0.01) + '\n')
+				f0.write(str(float(recall_list[i])) + '\t' + str(float(prec_list[i])) + '\n')
 			else:
 				f0.write(recall_list[i] + '\t' + prec_list[i] + '\n')
 
