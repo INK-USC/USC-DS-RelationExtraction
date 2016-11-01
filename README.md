@@ -3,7 +3,7 @@ CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases
 
 ## Publication
 
-* Xiang Ren\*, Zeqiu Wu, Wenqi He, Meng Qu, Clare R. Voss, Heng Ji, Tarek F. Abdelzaher, Jiawei Han, "**[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763v1.pdf)**”, WWW 2017.
+* Xiang Ren\*, Zeqiu Wu, Wenqi He, Meng Qu, Clare R. Voss, Heng Ji, Tarek F. Abdelzaher, Jiawei Han, "**[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763v1.pdf)**”, arXiv:1610.08763.
 
 ## Requirements
 
@@ -12,6 +12,7 @@ We will take Ubuntu for example.
 * python 2.7
 ```
 $ sudo apt-get install python
+$ pip install pexpect
 ```
 
 * [stanford coreNLP 3.5.2](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/dasmith/stanford-corenlp-python). Please put the library in folder DataProcessor/.
