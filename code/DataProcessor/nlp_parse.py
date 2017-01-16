@@ -1,15 +1,14 @@
 __author__ = 'ZeqiuWu'
 
-import json
+import ujson as json
+from stanza.nlp.corenlp import CoreNLPClient
+from tqdm import tqdm
 import sys
 import time
 import unicodedata
 import re
 from unidecode import unidecode
-sys.path.append('code/DataProcessor/stanford-corenlp-python/corenlp/')
-from corenlp import StanfordCoreNLP
-
-#from nltk.tag.stanford import POSTagger
+#from corenlp import StanfordCoreNLP
 
 
 class NLPParser(object):
@@ -20,61 +19,29 @@ class NLPParser(object):
     parser: StanfordCoreNLP
         the Staford Core NLP parser
     """
-    def __init__(self, corenlp_dir):
-        self.parser = StanfordCoreNLP(corenlp_dir)
+    def __init__(self):
+        self.parser = CoreNLPClient(default_annotators=['ssplit', 'tokenize', 'pos'])
 
         #self.parser = POSTagger(corenlp_dir+'/models/english-bidirectional-distsim.tagger', corenlp_dir+'/stanford-postagger.jar')
     def parse(self, sent):
-        """
-        Part-Of-Speech tagging
-        :param sent: string
-        :return: a list of tuple (tokens, pos)
-        """
-        """
-        tokens = []
-        pos = []
-        result = self.parser.tag(sent.split())
-        for entry in result:
-            tokens.append(entry[0])
-            pos.append(entry[1])
-        tuples = [tokens, pos]
-        return tuples
-        """
-        result = self.parser.raw_parse(sent)
+        result = self.parser.annotate(sent)
         tuples = []
-        word, pos = [], []
-        for s in result['sentences']:
-            for w in s['words']:
-                word.append(w[0])
-                pos.append(w[1]['PartOfSpeech'])
-
-            pattern = re.compile('\[Text=')
-            tokenpattern = re.compile('\[Text=[^\s]+\s')
-            pospattern = re.compile('PartOfSpeech=[^\s]+\s')
-            startIdxed = []
-            for t in re.finditer(pattern, s['parsetree']):
-                startIdxed.append(t.start())
-            for i in range(len(startIdxed)):
-                start = startIdxed[i]
-                if i < len(startIdxed) - 1:
-                    end = startIdxed[i+1]
-                else:
-                    end = -1
-                token = s['parsetree'][start:end]
-                text = re.findall(tokenpattern, token)
-                partOfSpeech = re.findall(pospattern, token)
-                word.append(text[0][6:-1])
-                pos.append(partOfSpeech[0][13:-1])
-        tuples.append((word, pos))
-        #print tuples
+        for sent in result.sentences:
+            tokens, pos = [], []
+            for token in sent:
+                tokens += [token.word]
+                pos += [token.pos]
+            tuples.append((tokens, pos))
         return tuples
 
 
-def parse(sentences, g, lock, procNum, isTrain):
-    #g = open(output, 'w')
+def parse(sentences, g, lock, procNum, isTrain, parsePOSBeforehand=False):
     rmCount = 0
     discardRmCount = 0
-    parser = NLPParser('code/DataProcessor/stanford-corenlp-python/corenlp/stanford-corenlp-full-2015-04-20')
+    parser = NLPParser()
+    posAndTokensMap = None
+    if parsePOSBeforehand:
+        posAndTokensMap = createPosAndTokensMap(sentences, parser)
     count=0
     buffered = []
     start = time.time()
@@ -88,26 +55,24 @@ def parse(sentences, g, lock, procNum, isTrain):
             sys.stdout.write("Process %d, parsed %d sentences, Time: %d sec\r" % (procNum, count, time.time() - start) )
             sys.stdout.flush()
     if(len(buffered) > 0):
-        rmCount, discardRmCount = process(buffered, parser, g, lock, isTrain, rmCount, discardRmCount)
+        rmCount, discardRmCount = process(buffered, parser, g, lock, isTrain, rmCount, discardRmCount, posAndTokensMap)
     print procNum, rmCount, discardRmCount, '\n'
 
 
-def process(buffered, parser, g, lock, isTrain, rmCount, discardRmCount):
+def process(buffered, parser, g, lock, isTrain, rmCount, discardRmCount, posAndTokensMap=None):
 
     for sent in buffered:
-        sentText = str(unicodedata.normalize('NFKD', sent['sentText']).encode('ascii','ignore')).rstrip('\n').rstrip('\r')
+        sentText = sent['sentText']
         try:
-            tuples = parser.parse(sentText)
-            pos = tuples[0][1]
-            tokens = tuples[0][0]
-            #print tuples
-            #print sentText
+            if not posAndTokensMap:
+                tuples = parser.parse(sentText)
+                pos = tuples[0][1]
+                tokens = tuples[0][0]
+            else:
+                key = (sent['articleId'],sent['sentId'])
+                pos = posAndTokensMap[key][1]
+                tokens = posAndTokensMap[key][0]
 
-            """
-            tuples = parser.parse(sentText)
-            tokens = tuples[0]
-            pos = tuples[1]
-            """
             relationMentions = []
             entityMentions = []
             emStartIndexes = set()
@@ -123,15 +88,13 @@ def process(buffered, parser, g, lock, isTrain, rmCount, discardRmCount):
                     end += offset
                 if start != -1 and end != -1:
                     if end <= start:
-                        #print 'holy shit'
-                        #print sentText
                         continue
                     emStartIndexes.add(start)
                     if emText not in emIndexByText:
                         emIndexByText[emText] = [(start, end)]
                     else:
                         emIndexByText[emText].append((start, end))
-                    entityMentions.append({'start':start, 'end':end, 'labels':em['label'].split(',')})
+                    entityMentions.append({'start':start, 'end':end, 'labels':em['label']})
             emStartIndexes = sorted(list(emStartIndexes))
             orderByStartIdxMap = {}
             for i in range(len(emStartIndexes)):
@@ -165,8 +128,6 @@ def process(buffered, parser, g, lock, isTrain, rmCount, discardRmCount):
                                     break
                             if flag:
                                 break
-                        #start1, end1 = find_index(tokens, em1.split())
-                        #start2, end2 = find_index(tokens, em2.split())
                     numOfEMBetween = 0
                     if start2 > start1:
                         numOfEMBetween = orderByStartIdxMap[start2] - orderByStartIdxMap[start1] - 1
@@ -180,13 +141,11 @@ def process(buffered, parser, g, lock, isTrain, rmCount, discardRmCount):
                             visitedEmPairs[((start1, end1), (start2, end2))] = set([rm['label']])
                 except Exception as e:
                     discardRmCount += 1
-                    #print 'index error: ', e.message, e.args
-                    #print sent['articleId'], sent['sentId'], ' : ', rm
             if len(visitedEmPairs) > 0:
                 for emPair in visitedEmPairs:
                     relationMentions.append({'em1Start':emPair[0][0], 'em1End':emPair[0][1], 'em2Start':emPair[1][0], 'em2End':emPair[1][1], 'numOfEMBetween':numOfEMBetweenMap[emPair], 'labels':list(visitedEmPairs[emPair])})
             newsent = dict()
-            newsent['articleId'] = unicodedata.normalize('NFKD', sent['articleId']).encode('ascii','ignore')
+            newsent['articleId'] = sent['articleId']
             newsent['sentId'] = sent['sentId']
             newsent['tokens'] = tokens
             newsent['pos'] = pos
@@ -196,7 +155,6 @@ def process(buffered, parser, g, lock, isTrain, rmCount, discardRmCount):
             g.write(json.dumps(newsent)+'\n')
             lock.release()
         except Exception as e:
-           # print emIndexByText
             print 'parse error: ', e.message, e.args
             print sent['articleId'], sent['sentId']
     return rmCount, discardRmCount
@@ -218,6 +176,25 @@ def find_index(sen_split, word_split):
                 index2 = i + len(word_split)
                 break
     return index1, index2
+
+def createPosAndTokensMap(sentences, parser):
+    text = ''
+    ids = []
+    for line in sentences:
+        sent = json.loads(line.strip('\r\n'))
+        ids.append((sent['articleId'],sent['sentId']))
+        text += sent['sentText'].strip('\r\n')
+        text += '\n'
+    tuples = parser.parse(text)
+    map = {}
+    if len(ids) != len(tuples):
+        print(len(ids),len(tuples))
+        raise Exception('ids and parsed sentenses should have the same size!!!')
+    for i in range(len(ids)):
+        if ids[i] in map:
+            raise Exception('duplicate id found: %s' % str(ids[i]))
+        map[ids[i]] = (tuples[i][0], tuples[i][1])
+    return map
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
