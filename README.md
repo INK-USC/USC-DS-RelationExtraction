@@ -15,7 +15,7 @@ $ sudo apt-get install python
 $ pip install pexpect
 ```
 
-* [stanford coreNLP 3.5.2](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/dasmith/stanford-corenlp-python). Please put the library in folder DataProcessor/.
+* [stanford coreNLP 3.5.2](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/stanfordnlp/stanza). Please put the library in folder DataProcessor/.
 
 * [eigen 3.2.5](eigen.tuxfamily.org/). Please put the library in folder Model/.
 
@@ -33,6 +33,7 @@ Please put the data files in corresponding subdirectories in Data/.
 Run CoType for the task of Reduce Label Noise on the BioInfer dataset
 
 ```
+$ java -mx4g -cp "code/DataProcessor/stanford-corenlp-full-2016-10-31/*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer
 $ ./run.sh  
 ```
 
