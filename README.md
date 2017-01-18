@@ -15,7 +15,7 @@ $ sudo apt-get install python
 $ pip install pexpect
 ```
 
-* [stanford coreNLP 3.5.2](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/stanfordnlp/stanza). Please put the library in folder DataProcessor/.
+* [stanford coreNLP 3.7.0](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/stanfordnlp/stanza). Please put the library in folder DataProcessor/.
 
 * [eigen 3.2.5](eigen.tuxfamily.org/). Please put the library in folder Model/.
 
