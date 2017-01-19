@@ -19,7 +19,7 @@ $ pip install pexpect
 
 * [eigen 3.2.5](eigen.tuxfamily.org/). Please put the library in folder Model/.
 
-* cd /Model/reType and "make"
+* cd /Model/retype and "make"
 
 ## Dataset
 Three datasets used in the paper could be downloaded here:
