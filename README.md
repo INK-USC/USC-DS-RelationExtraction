@@ -17,6 +17,15 @@ $ pip install pexpect
 
 * [stanford coreNLP 3.7.0](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/stanfordnlp/stanza). Please put the library in folder DataProcessor/.
 
+```
+$ cd code/DataProcessor/
+$ git clone git@github.com:stanfordnlp/stanza.git
+$ cd stanza
+$ pip install -e .
+$ wget http://nlp.stanford.edu/software/stanford-corenlp-full-2016-10-31.zip
+$ unzip stanford-corenlp-full-2016-10-31.zip
+```
+
 * [eigen 3.2.5](eigen.tuxfamily.org/). Please put the library in folder Model/.
 
 * cd /Model/retype and "make"
