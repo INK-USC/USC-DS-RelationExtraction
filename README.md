@@ -30,7 +30,7 @@ Three datasets used in the paper could be downloaded here:
 Please put the data files in corresponding subdirectories in Data/.
 
 ## Default Run
-Run CoType for the task of Reduce Label Noise on the BioInfer dataset
+Run CoType for the task of Relation Extraction on the BioInfer dataset
 
 ```
 $ java -mx4g -cp "code/DataProcessor/stanford-corenlp-full-2016-10-31/*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer
