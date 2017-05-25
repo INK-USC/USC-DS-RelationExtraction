@@ -8,15 +8,17 @@ from emb_prediction import *
 
 if __name__ == "__main__":
 
-    if len(sys.argv) != 5:
-        print 'Usage: emb_test.py -DATA(nyt_candidates) -METHOD(retypeRM) -SIM(cosine/dot) -THRESHOLD'
+    if len(sys.argv) != 6:
+        print 'Usage: emb_test.py -TASK (classify/extract) \
+        -DATA(BioInfer/NYT/Wiki) -METHOD(retype) -SIM(cosine/dot) -THRESHOLD'
         exit(-1)
 
     # do prediction here
-    _data = sys.argv[1]
-    _method = sys.argv[2]
-    _sim_func = sys.argv[3]
-    _threshold = float(sys.argv[4])
+    _task = sys.argv[1]
+    _data = sys.argv[2]
+    _method = sys.argv[3]
+    _sim_func = sys.argv[4]
+    _threshold = float(sys.argv[5])
 
     indir = 'data/intermediate/' + _data + '/rm'
     outdir = 'data/results/' + _data + '/rm'
@@ -25,17 +27,27 @@ if __name__ == "__main__":
     ground_truth = load_labels(indir + '/mention_type_test.txt')
 
     ### Prediction
-    if '_neg' in _data:
+    if _task == 'extract':
         none_label_index = find_none_index(indir + '/type.txt')
         predict(indir, outdir, _method, _sim_func, _threshold, output, none_label_index)
-    else:
+    elif _task == 'classify':
         predict(indir, outdir, _method, _sim_func, _threshold, output, None)
+    else:
+        print 'wrong TASK argument!'
+        exit(1)
 
     ### Evluate embedding predictions
     predictions = load_labels(output)
-    print 'Predicted labels (embedding):'
-    if '_neg' in _data:
+    print 'Evalaution:'
+    if _task == 'extract':
         none_label_index = find_none_index(indir + '/type.txt')
-        print '%f\t%f\t%f\t' % evaluate_rm_neg(predictions, ground_truth, none_label_index)
+        prec, rec, f1 = evaluate_rm_neg(predictions, ground_truth, none_label_index)
+        # print 'precision:', prec
+        # print 'recall:', rec
+        # print 'f1:', f1
+    elif _task == 'classify':
+        prec, rec, f1 = evaluate_rm(predictions, ground_truth)
+        # print 'accuracy:', prec
     else:
-        print '%f\t%f\t%f\t' % evaluate_rm(predictions, ground_truth)
+        print 'wrong TASK argument.'
+        exit(1)

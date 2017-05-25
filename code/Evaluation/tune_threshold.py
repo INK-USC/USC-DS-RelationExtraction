@@ -50,39 +50,39 @@ def tune_threshold(_threshold_list, ground_truth, none_label_index):
 
 if __name__ == "__main__":
 
-	if len(sys.argv) != 5:
-		print 'Usage: tune_threshold.py -DATA(nyt_candidates) -MODE (emb) -METHOD(retypeRm) -SIM(cosine/dot)'
+	if len(sys.argv) != 6:
+		print 'Usage: tune_threshold.py -TASK (classifer/extract) -DATA(KBP/NYT/BioInfer) -MODE (emb) -METHOD(retype) -SIM(cosine/dot)'
 		exit(-1)
 
 	# do prediction here
-	_data = sys.argv[1]
-	_mode = sys.argv[2]
-	_method = sys.argv[3]
-	_sim_func = sys.argv[4]
+	_task = sys.argv[1]
+	_data = sys.argv[2]
+	_mode = sys.argv[3]
+	_method = sys.argv[4]
+	_sim_func = sys.argv[5]
 
 	indir = 'data/intermediate/' + _data + '/rm'
 	outdir = 'data/results/' + _data + '/rm'
 	ground_truth = load_labels(indir + '/mention_type_test.txt')
 	prediction = load_label_score(outdir + '/prediction_' + _mode + '_' + _method + '_' + _sim_func + '.txt')
 	file_name = outdir + '/tune_thresholds_' + _mode + '_' + _method + '_' + _sim_func +'.txt'
-	print _data, _mode, _method, _sim_func
+	# print _data, _mode, _method, _sim_func
 
 
 	step_size = 1
 	prediction = min_max_nomalization(prediction)
 	threshold_list = [float(i)/100.0 for i in range(0, 101, step_size)]
-	print threshold_list[0], 'to', threshold_list[-1], ', step-size:', step_size / 100.0
+	# print threshold_list[0], 'to', threshold_list[-1], ', step-size:', step_size / 100.0
 
-	if '_neg' in _data:
+	if _task == 'extract':
 		none_label_index = find_none_index(indir + '/type.txt')
-		print '[None] label index: ', none_label_index
+		# print '[None] label index: ', none_label_index
 		result = tune_threshold(threshold_list, ground_truth, none_label_index)
 	else:
 		result = tune_threshold(threshold_list, ground_truth, None)
 
 
 	### Output
-
 	prec_list = []
 	recall_list = []
 	f1_list = []
@@ -102,14 +102,6 @@ if __name__ == "__main__":
 			max_prec = precision
 			max_recall = recall
 			max_threshold = _threshold
-
-	##### write one metric per line
-	# with open(file_name, 'w') as f0:
-	# 	f0.write('Threshold\tPrecision\tRecall\tF1\n')
-	# 	f0.write('\t'.join(threshold_list_str) + '\n')
-	# 	f0.write('\t'.join(prec_list) + '\n')
-	# 	f0.write('\t'.join(recall_list) + '\n')
-	# 	f0.write('\t'.join(f1_list))
 
 	with open(file_name, 'w') as f0:
 		for i in range(len(threshold_list_str)):
