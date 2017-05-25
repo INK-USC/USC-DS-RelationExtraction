@@ -1,6 +1,6 @@
 ## CoType: Joint Typing of Entities and Relations with  Knowledge Bases
 
-Source code and data for WWW'16 paper *[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763v1.pdff)*. 
+Source code and data for WWW'17 paper *[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763v1.pdf)*. 
 
 Given a text corpus with entity mentions *detected* and *heuristically labeled* by distant supervision, this code determine the entity types for each entity mention, and identify relationships between entities and their relation types.
 
@@ -16,7 +16,7 @@ We will take Ubuntu for example.
 $ pip install pexpect ujson tqdm
 ```
 
-* [stanford coreNLP 3.7.0](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/stanfordnlp/stanza). Please put the library in folder DataProcessor/.
+* [stanford coreNLP 3.7.0](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/stanfordnlp/stanza). Please put the library under `CoType/code/DataProcessor/'.
 
 ```
 $ cd code/DataProcessor/
