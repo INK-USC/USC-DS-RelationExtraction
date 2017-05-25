@@ -46,7 +46,7 @@ $ cd CoType/code/Model/retype; make
 ```
 
 ## Default Run
-Run CoType for the task of Relation Extraction on the BioInfer dataset
+Run CoType for the task of Relation Extraction on the Wiki-KBP dataset
 
 ```
 $ java -mx4g -cp "code/DataProcessor/stanford-corenlp-full-2016-10-31/*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer
@@ -56,7 +56,14 @@ $ ./run.sh
 ## Parameters - run.sh
 Dataset to run on.
 ```
-Data="BioInfer"
+Data="KBP"
+```
+
+## Evaluation
+After learning the embedding vectors, following script evaluates relation extraction performance (precision, recall, F1).
+```
+$ python code/Evaluation/emb_test.py extract KBP retype cosine 0.0
+$ python code/Evaluation/tune_threshold.py extract KBP emb retype cosine
 ```
 
 ## Reference
