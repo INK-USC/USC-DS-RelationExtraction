@@ -1,8 +1,10 @@
 ## CoType: Joint Typing of Entities and Relations with  Knowledge Bases
 
-## Publication
+Source code and data for WWW'16 paper *[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763v1.pdff)*. 
 
-* Xiang Ren\*, Zeqiu Wu, Wenqi He, Meng Qu, Clare R. Voss, Heng Ji, Tarek F. Abdelzaher, Jiawei Han, "**[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763v1.pdf)**”, 2017.
+Given a text corpus with entity mentions *detected* and *heuristically labeled* by distant supervision, this code determine the entity types for each entity mention, and identify relationships between entities and their relation types.
+
+An end-to-end tool (corpus to typed entities/relations) is under development. Please keep track of our updates.
 
 ## Dependencies
 
@@ -49,4 +51,17 @@ $ ./run.sh
 Dataset to run on.
 ```
 Data="BioInfer"
+```
+
+## Reference
+Please cite the following paper if you find the codes and datasets useful:
+```
+@inproceedings{ren2017cotype,
+ author = {Ren, Xiang and Wu, Zeqiu and He, Wenqi and Qu, Meng and Voss, Clare R. and Ji, Heng and Abdelzaher, Tarek F. and Han, Jiawei},
+ title = {CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases},
+ booktitle = {Proceedings of the 26th International Conference on World Wide Web},
+ year = {2017},
+ pages = {1015--1024},
+} 
+
 ```
