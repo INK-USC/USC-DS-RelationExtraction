@@ -1,0 +1,9 @@
+**/eigen-3.2.5/
+*.pyc
+*.DS_Store
+*.o
+*.zip
+DataProcessor/stanford-corenlp-python/
+Intermediate/*
+Results/*
+Data/BBN/*
