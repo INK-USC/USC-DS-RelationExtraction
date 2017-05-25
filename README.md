@@ -11,7 +11,7 @@ We will take Ubuntu for example.
 * python 2.7
 * CoType also depends on several python libraries
 ```
-$ pip install pexpect ujson
+$ pip install pexpect ujson tqdm
 ```
 
 * [stanford coreNLP 3.7.0](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/stanfordnlp/stanza). Please put the library in folder DataProcessor/.
