@@ -6,6 +6,10 @@ Given a text corpus with entity mentions *detected* and *heuristically labeled* 
 
 An end-to-end tool (corpus to typed entities/relations) is under development. Please keep track of our updates.
 
+## Performance
+Performance comparison with several distantly-supervised relation extraction systems over **KBP 2013 Slot Filling dataset**
+
+
 ## Dependencies
 
 We will take Ubuntu for example.
