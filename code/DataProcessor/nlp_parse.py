@@ -136,9 +136,9 @@ def process(buffered, parser, g, lock, isTrain, rmCount, discardRmCount, posAndT
                     if start1 != -1 and end1 != -1 and start2 != -1 and end2 != -1:
                         numOfEMBetweenMap[(start1, end1), (start2, end2)] = numOfEMBetween
                         if ((start1, end1), (start2, end2)) in visitedEmPairs:
-                            visitedEmPairs[((start1, end1), (start2, end2))].add(rm['label'])
+                            visitedEmPairs[((start1, end1), (start2, end2))].update(set(rm['label'].split(',')))
                         else:
-                            visitedEmPairs[((start1, end1), (start2, end2))] = set([rm['label']])
+                            visitedEmPairs[((start1, end1), (start2, end2))] = set(rm['label'].split(','))
                 except Exception as e:
                     discardRmCount += 1
             if len(visitedEmPairs) > 0:
