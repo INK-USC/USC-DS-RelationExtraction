@@ -94,7 +94,7 @@ def process(buffered, parser, g, lock, isTrain, rmCount, discardRmCount, posAndT
                         emIndexByText[emText] = [(start, end)]
                     else:
                         emIndexByText[emText].append((start, end))
-                    entityMentions.append({'start':start, 'end':end, 'labels':em['label']})
+                    entityMentions.append({'start':start, 'end':end, 'labels':em['label'].split(',')})
             emStartIndexes = sorted(list(emStartIndexes))
             orderByStartIdxMap = {}
             for i in range(len(emStartIndexes)):
