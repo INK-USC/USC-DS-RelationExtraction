@@ -57,12 +57,14 @@ $ cd CoType/code/Model/retype; make
 ```
 
 ## Default Run
-Run CoType for the task of Relation Extraction on the Wiki-KBP dataset
+Run CoType for the task of *Relation Extraction* on the Wiki-KBP dataset
 
 ```
 $ java -mx4g -cp "code/DataProcessor/stanford-corenlp-full-2016-10-31/*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer
 $ ./run.sh  
 ```
+
+For relation classification, the "none"-labeled instances need to be first removed from train/test JSON files. The hyperparamters for embedding learning are included in the run.sh script.
 
 ## Parameters - run.sh
 Dataset to run on.
