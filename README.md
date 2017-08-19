@@ -59,8 +59,13 @@ $ cd CoType/code/Model/retype; make
 ## Default Run
 Run CoType for the task of *Relation Extraction* on the Wiki-KBP dataset
 
+Start the Stanford corenlp server for the python wrapper.
 ```
 $ java -mx4g -cp "code/DataProcessor/stanford-corenlp-full-2016-10-31/*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer
+```
+
+Feature extraction, embedding learning on training data, and evaluation on test data.
+```
 $ ./run.sh  
 ```
 
