@@ -76,15 +76,16 @@ Dataset to run on.
 ```
 Data="KBP"
 ```
-- Parameters for learning CoType embeddings:
+- Hyperparameters for *relation extraction*:
 ```
 - KBP: -negative 3 -iters 400 -lr 0.02 -transWeight 1.0
 - NYT: -negative 5 -iters 700 -lr 0.02 -transWeight 7.0
 - BioInfer: -negative 5 -iters 700 -lr 0.02 -transWeight 7.0
 ```
+Hyperparameters for *relation classification* are included in the run.sh script.
 
 ## Evaluation
-After learning the embedding vectors, following script evaluates relation extraction performance (precision, recall, F1).
+Evaluates relation extraction performance (precision, recall, F1): produce predictions along with their confidence score; filter the predicted instances by tuning the thresholds.
 ```
 $ python code/Evaluation/emb_test.py extract KBP retype cosine 0.0
 $ python code/Evaluation/tune_threshold.py extract KBP emb retype cosine
