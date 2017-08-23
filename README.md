@@ -7,7 +7,7 @@ Given a text corpus with entity mentions *detected* and *heuristically labeled* 
 An end-to-end tool (corpus to typed entities/relations) is under development. Please keep track of our updates.
 
 ## Performance
-Performance comparison with several *relation extraction* systems over **KBP 2013 dataset** (*sentence-level extraction*). 
+Performance comparison with several *relation extraction* systems over KBP 2013 dataset (**sentence-level extraction**). 
 
 Method | Precision | Recall | F1 
 -------|-----------|--------|----
