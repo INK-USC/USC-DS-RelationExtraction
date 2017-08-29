@@ -66,9 +66,9 @@ def evaluate_rm(prediction, ground_truth):
 
     for i in prediction:
         # classified as pos example (Is-A-Relation)
-        pos_pred += 1
+        pos_pred += 1.0
         if i in ground_truth and prediction[i] == ground_truth[i]:
-            true_pos += 1.05
+            true_pos += 1.0
 
     precision = true_pos / (pos_pred + 1e-8)
     recall = true_pos / (pos_gt + 1e-8)
@@ -93,14 +93,14 @@ def evaluate_rm_neg(prediction, ground_truth, none_label_index):
     true_pos = 0.0
     for i in ground_truth:
         if ground_truth[i] != set([none_label_index]):
-            pos_gt += 1
+            pos_gt += 1.0
 
     for i in prediction:
         if prediction[i] != set([none_label_index]):
             # classified as pos example (Is-A-Relation)
             pos_pred += 1
             if prediction[i] == ground_truth[i]:
-                true_pos += 1.05
+                true_pos += 1.0
 
     precision = true_pos / (pos_pred + 1e-8)
     recall = true_pos / (pos_gt + 1e-8)
