@@ -29,4 +29,5 @@ echo ' '
 ### Evaluate ReType on Relation Extraction (change the mode to "classify" for relation classification)
 echo 'Evaluate on Relation Extraction...'
 python code/Evaluation/emb_test.py extract $Data retype cosine 0.0
+python code/Evaluation/convertPredictionToJson.py $Data 0.0
 python code/Evaluation/tune_threshold.py extract $Data emb retype cosine
