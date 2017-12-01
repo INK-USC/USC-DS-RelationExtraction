@@ -38,8 +38,12 @@ with open(testJson) as testJ, open(predictionJson, 'w') as predJ:
     sentDic = json.loads(line.strip('\r\n'))
     aid = str(sentDic['articleId'])
     sid = str(sentDic['sentId'])
+    tokens = sentDic['tokens']
     new_rms = []
     for rm in sentDic['relationMentions']:
+      new_rm = dict()
+      new_rm['em1Text'] = tokens[rm['em1Start']: rm['em1End']]
+      new_rm['em2Text'] = tokens[rm['em2Start']: rm['em2End']]
       mention = '_'.join([aid, sid, str(rm['em1Start']), str(rm['em1End']), str(rm['em2Start']), str(rm['em2End'])])
       mid = mention2id[mention]
       if mid not in mid2tid:
@@ -47,9 +51,12 @@ with open(testJson) as testJ, open(predictionJson, 'w') as predJ:
       else:
         tid = mid2tid[mid]
       predicted_type = tid2Name[tid]
-      rm['labels'] = [predicted_type]
-    predJ.write(json.dumps(sentDic)+'\n')
-
-
-
+      new_rm['label'] = predicted_type
+      new_rms.append(new_rm)
+    newSentDic = dict()
+    newSentDic['sentText'] = ' '.join(tokens)
+    newSentDic['sentId'] = sentDic['sentId']
+    newSentDic['articleId'] = sentDic['articleId']
+    newSentDic['relationMentions'] = new_rms
+    predJ.write(json.dumps(newSentDic)+'\n')
 
