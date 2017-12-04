@@ -92,7 +92,7 @@ $ python code/Evaluation/tune_threshold.py extract KBP emb retype cosine
 ```
 
 ## Prediction
-The last command generates json file for predicted results, in the same format as test.json in data/source/$DATANAME, except that we only output the predicted relation mention labels. Replace the second parameter with whatever threshold you would like.
+The last command in *run.sh* generates json file for predicted results, in the same format as test.json in data/source/$DATANAME, except that we only output the predicted relation mention labels. Replace the second parameter with whatever threshold you would like.
 ```
 $ python code/Evaluation/convertPredictionToJson.py $Data 0.0
 ```
