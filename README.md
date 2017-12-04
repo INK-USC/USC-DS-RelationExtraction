@@ -89,9 +89,13 @@ Evaluates relation extraction performance (precision, recall, F1): produce predi
 ```
 $ python code/Evaluation/emb_test.py extract KBP retype cosine 0.0
 $ python code/Evaluation/tune_threshold.py extract KBP emb retype cosine
+```
+
+## Evaluation
+The last command generates json file for predicted results, in the same format as test.json in data/source/$DATANAME, except that we only output the predicted relation mention labels. Replace the second parameter with whatever threshold you would like.
+```
 $ python code/Evaluation/convertPredictionToJson.py $Data 0.0
 ```
-The last command generates json file for predicted results, in the same format as test.json in data/source/$DATANAME, except that we only output the predicted relation mention labels. Replace the second parameter with whatever threshold you would like.
 
 ## Reference
 Please cite the following paper if you find the codes and datasets useful:
