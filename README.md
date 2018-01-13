@@ -4,6 +4,8 @@ Source code and data for WWW'17 paper *[CoType: Joint Extraction of Typed Entiti
 
 Given a text corpus with entity mentions *detected* and *heuristically labeled* by distant supervision, this code determine the entity types for each entity mention, and identify relationships between entities and their relation types.
 
+Code for producing the JSON files from a raw corpus for running CoType is [here](https://github.com/shanzhenren/StructMineDataPipeline).
+
 An end-to-end tool (corpus to typed entities/relations) is under development. Please keep track of our updates.
 
 ## Performance
