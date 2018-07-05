@@ -1,12 +1,11 @@
-## CoType: Joint Typing of Entities and Relations with  Knowledge Bases
+## Relation Extraction with Knowledge Bases (Distant Supervision)
 
-Source code and data for WWW'17 paper *[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763.pdf)*. 
+This repository includes recent models and data for sentence-level relation extraction **using knowledge bases (distant supervision)**. In particular, it contains the source code for WWW'17 paper *[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763.pdf)*.
 
-Given a text corpus with entity mentions *detected* and *heuristically labeled* by distant supervision, this code determine the entity types for each entity mention, and identify relationships between entities and their relation types.
+**Task Setting**: Given a text corpus with entity mentions *detected* and *heuristically labeled* by distant supervision, teh task aims to identify relation types/labels between a pair of entity mentions based on the sentence context where they co-occur.
 
 Code for producing the JSON files from a raw corpus for running CoType is [here](https://github.com/shanzhenren/StructMineDataPipeline).
 
-An end-to-end tool (corpus to typed entities/relations) is under development. Please keep track of our updates.
 
 ## Performance
 Performance comparison with several *relation extraction* systems over KBP 2013 dataset (**sentence-level extraction**). 
