@@ -4,7 +4,7 @@ This repository includes recent models and data for **sentence-level relation ex
 
 **Task Setting**: Given a text corpus with entity mentions *detected* and *heuristically labeled* by distant supervision, teh task aims to identify relation types/labels between a pair of entity mentions based on the sentence context where they co-occur.
 
-Code for producing the JSON files from a raw corpus for running CoType is [here](https://github.com/shanzhenren/StructMineDataPipeline).
+**Run on your own data**: Code for producing the JSON files from a raw corpus for running CoType is [here](https://github.com/shanzhenren/StructMineDataPipeline).
 
 
 ## Performance
