@@ -7,8 +7,8 @@ This repository includes recent models and data for **sentence-level extraction 
 **Run on your own data**: Code for producing the JSON files from a raw corpus for running CoType and baseline models is [here](https://github.com/shanzhenren/StructMineDataPipeline).
 
 
-## Data (sentence-level extraction)
-We [process](https://github.com/shanzhenren/StructMineDataPipeline) (using our [data pipeline](https://github.com/shanzhenren/StructMineDataPipeline)) three public datasets to our JSON format. We ran [Stanford NER](https://nlp.stanford.edu/software/CRF-NER.shtml) on training set to detect entity mentions, and performed distant supervision using [DBpediaSpotlight](https://github.com/dbpedia-spotlight/dbpedia-spotlight) to assign type labels:
+## Data
+For evaluating on sentence-level extraction, we [processed](https://github.com/shanzhenren/StructMineDataPipeline) (using our [data pipeline](https://github.com/shanzhenren/StructMineDataPipeline)) three public datasets to our JSON format. We ran [Stanford NER](https://nlp.stanford.edu/software/CRF-NER.shtml) on training set to detect entity mentions, mapped entity names to Freebase entities using [DBpediaSpotlight](https://github.com/dbpedia-spotlight/dbpedia-spotlight), aligned Freebase facts to sentences, and assign entity types of Freebase entities to their mapped names in sentences:
 
    * **PubMed-BioInfer**: 100k PubMed paper abstracts as training data and 1,530 manually labeled biomedical paper abstracts from [BioInfer](http://mars.cs.utu.fi/BioInfer/) ([Pyysalo et al., 2007](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-8-50)) as test data. It consists of 94 relation types (protein-protein interactions) and over 2,000 entity types (from MESH ontology). ([Download](https://drive.google.com/drive/folders/0B--ZKWD8ahE4RmFBTjR6aUJjTkU?usp=sharing))
    
