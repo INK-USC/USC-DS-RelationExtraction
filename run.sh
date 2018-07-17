@@ -17,7 +17,7 @@ echo ' '
 ###	- NYT: -negative 5 -iters 700 -lr 0.02 -transWeight 7.0
 ### - BioInfer: -negative 5 -iters 700 -lr 0.02 -transWeight 7.0
 echo 'Learn CoType embeddings...'
-code/Model/retype/retype -data $Data -mode j -size 50 -negative 3 -threads 35 -alpha 0.0001 -samples 1 -iters 400 -lr 0.02 -transWeight 1.0
+code/Model/retype/retype -data $Data -mode j -size 50 -negative 3 -threads 3 -alpha 0.0001 -samples 1 -iters 400 -lr 0.02 -transWeight 1.0
 echo ' '
 
 ### (NOTE: you need to remove "none" labels in the train/test JSON files when doing relation classification)
