@@ -7,6 +7,16 @@ This repository includes recent models and data for **sentence-level extraction 
 **Run on your own data**: Code for producing the JSON files from a raw corpus for running CoType and baseline models is [here](https://github.com/shanzhenren/StructMineDataPipeline).
 
 
+## Data
+We [process](https://github.com/shanzhenren/StructMineDataPipeline) (using our [data pipeline](https://github.com/shanzhenren/StructMineDataPipeline)) three public datasets to our JSON format. We ran [Stanford NER](https://nlp.stanford.edu/software/CRF-NER.shtml) on training set to detect entity mentions, and performed distant supervision using [DBpediaSpotlight](https://github.com/dbpedia-spotlight/dbpedia-spotlight) to assign type labels:
+
+   * **PubMed-BioInfer**: 100k PubMed paper abstracts as training data and 1,530 manually labeled biomedical paper abstracts from [BioInfer](http://mars.cs.utu.fi/BioInfer/) ([Pyysalo et al., 2007](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-8-50)) as test data. It consists of 94 relation types (protein-protein interactions) and over 2,000 entity types (from MESH ontology). ([Download JSON](https://drive.google.com/drive/folders/0B--ZKWD8ahE4RmFBTjR6aUJjTkU?usp=sharing))
+   * **NYT-manual**: 1.18M sentences sampled from 294K New York Times news articles which were then aligned with Freebase facts by ([Riedel et al., ECML'10](https://pdfs.semanticscholar.org/db55/0f7af299157c67d7f1874bf784dca10ce4a9.pdf)) ([link](http://iesl.cs.umass.edu/riedel/ecml/) to Riedel's data). For test set, 395 sentences are manually annotated with 24 relation types and 47 entity types ([Hoffmann et al., ACL'11](https://pdfs.semanticscholar.org/db55/0f7af299157c67d7f1874bf784dca10ce4a9.pdf)) ([link](http://raphaelhoffmann.com/mr/) to Hoffmann's data). ([Download JSON](https://drive.google.com/drive/folders/0B--ZKWD8ahE4UktManVsY1REOUk?usp=sharing))
+   * **Wiki-KBP**: the training corpus contains 1.5M sentences sampled from 780k [Wikipedia articles](https://github.com/xiaoling/figer) ([Ling & Weld, 2012](http://xiaoling.github.io/pubs/ling-aaai12.pdf)) plus ~7,000 sentences from 2013 KBP corpus. Test data consists of 14k system-labeled sentences from [2013 KBP slot filling](http://surdeanu.info/kbp2013/) assessment results. It has 13 relation types and 126 entity types after filtering of numeric value relations. ([Download JSON](https://drive.google.com/drive/folders/0B--ZKWD8ahE4RjFLUkVQTm93WVU?usp=sharing))
+
+Please put the data files in corresponding subdirectories under `CoType/data/source`
+
+
 ## Performance
 Performance comparison with several *relation extraction* systems over KBP 2013 dataset (**sentence-level extraction**). 
 
@@ -17,6 +27,7 @@ LINE + Dist Sup ([Tang et al., 2015](https://arxiv.org/pdf/1503.03578.pdf)) | **
 MultiR ([Hoffmann et al., 2011](http://raphaelhoffmann.com/publications/acl2011.pdf)) | 0.325 | 0.278 | 0.301 
 FCM + Dist Sup ([Gormley et al., 2015](http://www.aclweb.org/anthology/D15-1205)) | 0.151 | **0.498** | 0.300 
 **CoType** ([Ren et al., 2017](https://arxiv.org/pdf/1610.08763v1.pdf)) | 0.348 | 0.406 | **0.369**
+
 
 ## Dependencies
 
@@ -39,16 +50,6 @@ $ wget http://nlp.stanford.edu/software/stanford-corenlp-full-2016-10-31.zip
 $ unzip stanford-corenlp-full-2016-10-31.zip
 ```
 * [eigen 3.2.5](http://bitbucket.org/eigen/eigen/get/3.2.5.tar.bz2) (already included). 
-
-
-## Data
-We [process](https://github.com/shanzhenren/StructMineDataPipeline) (using our [data pipeline](https://github.com/shanzhenren/StructMineDataPipeline)) three public datasets to our JSON format. We ran [Stanford NER](https://nlp.stanford.edu/software/CRF-NER.shtml) on training set to detect entity mentions, and performed distant supervision using [DBpediaSpotlight](https://github.com/dbpedia-spotlight/dbpedia-spotlight) to assign type labels:
-
-   * **PubMed-BioInfer**: 100k PubMed paper abstracts as training data and 1,530 manually labeled biomedical paper abstracts from [BioInfer](http://mars.cs.utu.fi/BioInfer/) ([Pyysalo et al., 2007](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-8-50)) as test data. It consists of 94 relation types (protein-protein interactions) and over 2,000 entity types (from MESH ontology). ([Download JSON](https://drive.google.com/drive/folders/0B--ZKWD8ahE4RmFBTjR6aUJjTkU?usp=sharing))
-   * **NYT-manual**: 1.18M sentences sampled from 294K New York Times news articles which is then aligned with Freebase facts by ([Riedel et al., ECML'10](https://pdfs.semanticscholar.org/db55/0f7af299157c67d7f1874bf784dca10ce4a9.pdf)) ([original data](http://iesl.cs.umass.edu/riedel/ecml/)). For test set, 395 sentences are manually annotated with 24 relation types and 47 entity types ([Hoffmann et al., ACL'11](https://pdfs.semanticscholar.org/db55/0f7af299157c67d7f1874bf784dca10ce4a9.pdf)) ([link](http://raphaelhoffmann.com/mr/) to the original annotation data). ([Download JSON](https://drive.google.com/drive/folders/0B--ZKWD8ahE4UktManVsY1REOUk?usp=sharing))
-   * **Wiki-KBP**: the training corpus contains 1.5M sentences sampled from 780k [Wikipedia articles](https://github.com/xiaoling/figer) ([Ling & Weld, 2012](http://xiaoling.github.io/pubs/ling-aaai12.pdf)) plus ~7,000 sentences from 2013 KBP corpus. Test data consists of 14k system-labeled sentences from [2013 KBP slot filling](http://surdeanu.info/kbp2013/) assessment results. It has 13 relation types and 126 entity types after filtering of numeric value relations. ([Download JSON](https://drive.google.com/drive/folders/0B--ZKWD8ahE4RjFLUkVQTm93WVU?usp=sharing))
-
-Please put the data files in corresponding subdirectories under `CoType/data/source`
 
 
 ## Makefile
