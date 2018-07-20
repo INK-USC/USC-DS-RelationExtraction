@@ -1,10 +1,11 @@
-## Entity and Relation Extraction with Knowledge Bases
+## Sentence-level Relation Extraction with Knowledge Bases
 
 This repository includes recent models and data for **sentence-level extraction of entities and relations** *using knowledge bases (i.e., distant supervision)*. In particular, it contains the source code for WWW'17 paper *[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763.pdf)*.
 
 **Task Setting**: Given a text corpus with entity mentions *detected* and *heuristically labeled* by distant supervision, teh task aims to identify relation types/labels between a pair of entity mentions based on the sentence context where they co-occur.
 
 **Run on your own data**: Code for producing the JSON files from a raw corpus for running CoType and baseline models is [here](https://github.com/shanzhenren/StructMineDataPipeline).
+
 
 
 ## Data
@@ -17,6 +18,7 @@ For evaluating on sentence-level extraction, we [processed](https://github.com/s
    * **Wiki-KBP**: the training corpus contains 1.5M sentences sampled from 780k [Wikipedia articles](https://github.com/xiaoling/figer) ([Ling & Weld, 2012](http://xiaoling.github.io/pubs/ling-aaai12.pdf)) plus ~7,000 sentences from 2013 KBP corpus. Test data consists of 14k system-labeled sentences from [2013 KBP slot filling](http://surdeanu.info/kbp2013/) assessment results. It has 13 relation types and 126 entity types after filtering of numeric value relations. ([Download](https://drive.google.com/drive/folders/0B--ZKWD8ahE4RjFLUkVQTm93WVU?usp=sharing))
 
 Please put the data files in corresponding subdirectories under `CoType/data/source`
+
 
 
 ## Performance
