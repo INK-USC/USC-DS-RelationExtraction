@@ -18,7 +18,7 @@ For CONLL format:
 `python3 tacred2json.py` (Don't need if provided json file)
 
 For CoType format (json):
-
+- download data here: https://drive.google.com/open?id=1Xn3tA89wfePlh2OgHU7cw3Lh5RkjIclW
 - Run CoreNLP server (in CoreNLP directory): `java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer`
 - `python3 cotype2json.py --in_dir COTYPE_DATA_DIR --out_dir OUT_DATA_DIR` 
 
