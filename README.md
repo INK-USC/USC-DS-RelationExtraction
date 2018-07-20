@@ -9,6 +9,7 @@ This repository puts together recent models and data sets for **sentence-level r
 - [Benchmark](#benchmark)
 - [Usage](#usage)
 - [Customized Run](#customized-run)
+- [Baselines](#baselines)
 - [References](#reference)
 - [Contributors](#contributors)
 
@@ -121,6 +122,8 @@ $ python code/Evaluation/convertPredictionToJson.py $Data 0.0
 ## Customized Run
 Code for producing the JSON files from a raw corpus for running CoType and baseline models is [here](https://github.com/shanzhenren/StructMineDataPipeline).
 
+## Baselines
+You can find our implementation of some recent relation extraction models under the [Code/Model/](https://github.com/shanzhenren/CoType/tree/master/code/Model) directory.
 
 ## References
 * Xiang Ren, Zeqiu Wu, Wenqi He, Meng Qu, Clare R. Voss, Heng Ji, Tarek F. Abdelzaher, Jiawei Han. "[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763.pdf)", WWW 2017.
