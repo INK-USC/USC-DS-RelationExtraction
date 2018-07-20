@@ -1,18 +1,21 @@
-# Sentence-level Relation Extraction with Knowledge Bases
-
+# Distantly-supervised Relation Extraction with Knowledge Bases
 This repository puts together recent models and data sets for **sentence-level relation extraction** *using knowledge bases (i.e., distant supervision)*. In particular, it contains the source code for WWW'17 paper *[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763.pdf)*.
 
-**Task**: Given a text corpus with entity mentions *detected* and *heuristically labeled* by distant supervision, teh task aims to identify relation types/labels between a pair of entity mentions based on the sentence context where they co-occur.
-
-**Run on your own data**: Code for producing the JSON files from a raw corpus for running CoType and baseline models is [here](https://github.com/shanzhenren/StructMineDataPipeline).
+**Task**: Given a text corpus with entity mentions *detected* and *heuristically labeled* using distant supervision, the task aims to identify relation types/labels between a pair of entity mentions based on the sentence context where they co-occur.
 
 ## Quick Start
-
+- [Blog Posts](#blog-posts)
 - [Data](#data)
 - [Benchmark](#benchmark)
-- [Dependencies](#dependencies)
 - [Usage](#usage)
+- [Customized Run](#customized-run)
 - [References](#reference)
+- [Contributors](#contributors)
+
+## Blog Posts
+* [08/2017] [Indirect Supervision for Relation Extraction Using Question-Answer Pairs](https://ellenmellon.github.io/ReQuest/)
+* [08/2016] [Heterogeneous Supervision for Relation Extraction](https://liyuanlucasliu.github.io/ReHession/)
+
 
 ## Data
 For evaluating on sentence-level extraction, we [processed](https://github.com/shanzhenren/StructMineDataPipeline) (using our [data pipeline](https://github.com/shanzhenren/StructMineDataPipeline)) three public datasets to our JSON format. We ran [Stanford NER](https://nlp.stanford.edu/software/CRF-NER.shtml) on training set to detect entity mentions, mapped entity names to Freebase entities using [DBpediaSpotlight](https://github.com/dbpedia-spotlight/dbpedia-spotlight), aligned Freebase facts to sentences, and assign entity types of Freebase entities to their mapped names in sentences:
@@ -46,8 +49,9 @@ Position-Aware LSTM ([Zhang et al., 2017](http://www.aclweb.org/anthology/D17-10
 **CoType** ([Ren et al., 2017](https://arxiv.org/pdf/1610.08763v1.pdf)) | 0.348 | 0.406 | **0.369**
 
 
-## Dependencies
+## Usage
 
+### Dependencies
 We will take Ubuntu for example.
 
 * python 2.7
@@ -73,7 +77,7 @@ We have included compilied binaries. If you need to re-compile `retype.cpp` unde
 $ cd CoType/code/Model/retype; make
 ```
 
-## Usage
+### Default Run
 Run CoType for the task of *Relation Extraction* on the Wiki-KBP dataset
 
 Start the Stanford corenlp server for the python wrapper.
@@ -108,21 +112,30 @@ $ python code/Evaluation/emb_test.py extract KBP retype cosine 0.0
 $ python code/Evaluation/tune_threshold.py extract KBP emb retype cosine
 ```
 
-### Prediction
+### In-text Prediction
 The last command in *run.sh* generates json file for predicted results, in the same format as test.json in data/source/$DATANAME, except that we only output the predicted relation mention labels. Replace the second parameter with whatever threshold you would like.
 ```
 $ python code/Evaluation/convertPredictionToJson.py $Data 0.0
 ```
 
+### Customized Run
+Code for producing the JSON files from a raw corpus for running CoType and baseline models is [here](https://github.com/shanzhenren/StructMineDataPipeline).
+
+
 ## References
-Please cite the following paper if you find the codes and datasets useful:
-```
-@inproceedings{ren2017cotype,
- author = {Ren, Xiang and Wu, Zeqiu and He, Wenqi and Qu, Meng and Voss, Clare R. and Ji, Heng and Abdelzaher, Tarek F. and Han, Jiawei},
- title = {CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases},
- booktitle = {Proceedings of the 26th International Conference on World Wide Web},
- year = {2017},
- pages = {1015--1024},
-} 
+* Xiang Ren, Zeqiu Wu, Wenqi He, Meng Qu, Clare R. Voss, Heng Ji, Tarek F. Abdelzaher, Jiawei Han. "[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763.pdf)", WWW 2017.
+* Meng Qu, Xiang Ren, Yu Zhang, Jiawei Han. “[Weakly-supervised Relation Extraction by Pattern-enhanced Embedding Learning](https://arxiv.org/abs/1711.03226)”, WWW 2018.
+* Liyuan Liu*, Xiang Ren*, Qi Zhu, Shi Zhi, Huan Gui, Heng Ji, Jiawei Han. "[Heterogeneous Supervision for Relation Extraction: A Representation Learning Approach](https://arxiv.org/abs/1707.00166)", EMNLP 2017.
+* Ellen Wu, Xiang Ren, Frank Xu, Ji Li, Jiawei Han. "[Indirect Supervision for Relation Extraction using Question-Answer Pairs](https://arxiv.org/abs/1710.11169)", WSDM 2018.
+
+
+## Contributors
+* Ellen Wu
+* Meng Qu
+* Frank Xu
+* Wenqi He
+* Maosen Zhang
+* Qinyuan Ye
+* Xiang Ren
 
 ```
