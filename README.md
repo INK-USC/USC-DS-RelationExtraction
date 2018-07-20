@@ -137,5 +137,3 @@ Code for producing the JSON files from a raw corpus for running CoType and basel
 * Maosen Zhang
 * Qinyuan Ye
 * Xiang Ren
-
-```
