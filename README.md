@@ -1,12 +1,18 @@
-## Sentence-level Relation Extraction with Knowledge Bases
+# Sentence-level Relation Extraction with Knowledge Bases
 
-This repository includes recent models and data for **sentence-level extraction of entities and relations** *using knowledge bases (i.e., distant supervision)*. In particular, it contains the source code for WWW'17 paper *[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763.pdf)*.
+This repository puts together recent models and data sets for **sentence-level relation extraction** *using knowledge bases (i.e., distant supervision)*. In particular, it contains the source code for WWW'17 paper *[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763.pdf)*.
 
-**Task Setting**: Given a text corpus with entity mentions *detected* and *heuristically labeled* by distant supervision, teh task aims to identify relation types/labels between a pair of entity mentions based on the sentence context where they co-occur.
+**Task**: Given a text corpus with entity mentions *detected* and *heuristically labeled* by distant supervision, teh task aims to identify relation types/labels between a pair of entity mentions based on the sentence context where they co-occur.
 
 **Run on your own data**: Code for producing the JSON files from a raw corpus for running CoType and baseline models is [here](https://github.com/shanzhenren/StructMineDataPipeline).
 
+## Quick Start
 
+- [Data](#data)
+- [Benchmark](#benchmark)
+- [Dependencies](#dependencies)
+- [Usage](#usage)
+- [References](#reference)
 
 ## Data
 For evaluating on sentence-level extraction, we [processed](https://github.com/shanzhenren/StructMineDataPipeline) (using our [data pipeline](https://github.com/shanzhenren/StructMineDataPipeline)) three public datasets to our JSON format. We ran [Stanford NER](https://nlp.stanford.edu/software/CRF-NER.shtml) on training set to detect entity mentions, mapped entity names to Freebase entities using [DBpediaSpotlight](https://github.com/dbpedia-spotlight/dbpedia-spotlight), aligned Freebase facts to sentences, and assign entity types of Freebase entities to their mapped names in sentences:
@@ -15,13 +21,13 @@ For evaluating on sentence-level extraction, we [processed](https://github.com/s
    
    * **NYT-manual**: 1.18M sentences sampled from 294K New York Times news articles which were then aligned with Freebase facts by ([Riedel et al., ECML'10](https://pdfs.semanticscholar.org/db55/0f7af299157c67d7f1874bf784dca10ce4a9.pdf)) ([link](http://iesl.cs.umass.edu/riedel/ecml/) to Riedel's data). For test set, 395 sentences are manually annotated with 24 relation types and 47 entity types ([Hoffmann et al., ACL'11](http://raphaelhoffmann.com/publications/acl2011.pdf)) ([link](http://raphaelhoffmann.com/mr/) to Hoffmann's data). ([Download](https://drive.google.com/drive/folders/0B--ZKWD8ahE4UktManVsY1REOUk?usp=sharing))
    
-   * **Wiki-KBP**: the training corpus contains 1.5M sentences sampled from 780k [Wikipedia articles](https://github.com/xiaoling/figer) ([Ling & Weld, 2012](http://xiaoling.github.io/pubs/ling-aaai12.pdf)) plus ~7,000 sentences from 2013 KBP corpus. Test data consists of 14k system-labeled sentences from [2013 KBP slot filling](http://surdeanu.info/kbp2013/) assessment results. It has 13 relation types and 126 entity types after filtering of numeric value relations. ([Download](https://drive.google.com/drive/folders/0B--ZKWD8ahE4RjFLUkVQTm93WVU?usp=sharing))
+   * **Wiki-KBP**: the training corpus contains 1.5M sentences sampled from 780k [Wikipedia articles](https://github.com/xiaoling/figer) ([Ling & Weld, 2012](http://xiaoling.github.io/pubs/ling-aaai12.pdf)) plus ~7,000 sentences from 2013 KBP corpus. Test data consists of 14k system-labeled sentences from [2013 KBP slot filling](http://surdeanu.info/kbp2013/) assessment results. It has 7 relation types and 126 entity types after filtering of numeric value relations. ([Download](https://drive.google.com/drive/folders/0B--ZKWD8ahE4RjFLUkVQTm93WVU?usp=sharing))
 
 Please put the data files in corresponding subdirectories under `CoType/data/source`
 
 
 
-## Performance
+## Benchmark
 Performance comparison with several *relation extraction* systems over KBP 2013 dataset (**sentence-level extraction**). 
 
 Method | Precision | Recall | F1 
@@ -62,14 +68,12 @@ $ unzip stanford-corenlp-full-2016-10-31.zip
 ```
 * [eigen 3.2.5](http://bitbucket.org/eigen/eigen/get/3.2.5.tar.bz2) (already included). 
 
-
-## Makefile
 We have included compilied binaries. If you need to re-compile `retype.cpp` under your own g++ environment
 ```
 $ cd CoType/code/Model/retype; make
 ```
 
-## Default Run
+## Usage
 Run CoType for the task of *Relation Extraction* on the Wiki-KBP dataset
 
 Start the Stanford corenlp server for the python wrapper.
@@ -84,7 +88,7 @@ $ ./run.sh
 
 For relation classification, the "none"-labeled instances need to be first removed from train/test JSON files. The hyperparamters for embedding learning are included in the run.sh script.
 
-## Parameters - run.sh
+### Parameters
 Dataset to run on.
 ```
 Data="KBP"
@@ -97,20 +101,20 @@ Data="KBP"
 ```
 Hyperparameters for *relation classification* are included in the run.sh script.
 
-## Evaluation
+### Evaluation
 Evaluates relation extraction performance (precision, recall, F1): produce predictions along with their confidence score; filter the predicted instances by tuning the thresholds.
 ```
 $ python code/Evaluation/emb_test.py extract KBP retype cosine 0.0
 $ python code/Evaluation/tune_threshold.py extract KBP emb retype cosine
 ```
 
-## Prediction
+### Prediction
 The last command in *run.sh* generates json file for predicted results, in the same format as test.json in data/source/$DATANAME, except that we only output the predicted relation mention labels. Replace the second parameter with whatever threshold you would like.
 ```
 $ python code/Evaluation/convertPredictionToJson.py $Data 0.0
 ```
 
-## Reference
+## References
 Please cite the following paper if you find the codes and datasets useful:
 ```
 @inproceedings{ren2017cotype,
