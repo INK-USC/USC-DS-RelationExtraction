@@ -118,7 +118,7 @@ The last command in *run.sh* generates json file for predicted results, in the s
 $ python code/Evaluation/convertPredictionToJson.py $Data 0.0
 ```
 
-### Customized Run
+## Customized Run
 Code for producing the JSON files from a raw corpus for running CoType and baseline models is [here](https://github.com/shanzhenren/StructMineDataPipeline).
 
 
