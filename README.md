@@ -43,6 +43,7 @@ LSTM (our implementation) | 0.274 | 0.500 | 0.350
 Bi-GRU (our implementation) | 0.301 | 0.465 | 0.362
 SDP-LSTM (our implementation, [Xu et at., 2015](http://www.aclweb.org/anthology/D15-1206)) | 0.300 | 0.436 | 0.356
 Position-Aware LSTM ([Zhang et al., 2017](http://www.aclweb.org/anthology/D17-1004))| 0.265 | **0.598** | 0.367
+CoType-RM ([Ren et al., 2017](https://arxiv.org/pdf/1610.08763v1.pdf)) | 0.303 | 0.407 | 0.347
 **CoType** ([Ren et al., 2017](https://arxiv.org/pdf/1610.08763v1.pdf)) | 0.348 | 0.406 | **0.369**
 
 
