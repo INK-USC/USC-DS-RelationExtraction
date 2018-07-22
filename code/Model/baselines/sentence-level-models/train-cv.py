@@ -1,5 +1,7 @@
 '''
-Training script with ramdom splitting dev set
+Training script for Position-Aware LSTM for Relation Extraction
+Author: Maosen Zhang
+Email: zhangmaosen@pku.edu.cn
 '''
 __author__ = 'Maosen'
 import torch
@@ -95,7 +97,7 @@ if __name__ == '__main__':
 
 	# Training
 	logging.info(str(args))
-	for runid in range(args.repeat):
+	for runid in range(1, args.repeat+1):
 		model = Model(args, device, train_dset.rel2id, word_emb=emb_matrix)
 		max_dev_f1 = 0.0
 		# dev_result_on_max_dev_f1 = ()
@@ -121,9 +123,9 @@ if __name__ == '__main__':
 				dev_result_on_max_dev_f1 = (dev_prec, dev_recall, dev_f1)
 				test_result_on_max_dev_f1 = (test_prec, test_recall, test_f1)
 		logging.info('Max dev F1: %f' % max_dev_f1)
-		logging.info('Dev result on max dev F1 (P,R,F1): {} {} {}'.format(dev_result_on_max_dev_f1[0],
+		logging.info('Dev result on max dev F1 (P,R,F1): {:.6f}\t{:.6f}\t{:.6f}'.format(dev_result_on_max_dev_f1[0],
 																		  dev_result_on_max_dev_f1[1],
 																		  dev_result_on_max_dev_f1[2]))
-		logging.info('Test result on max dev F1 (P,R,F1): {} {} {}' .format(test_result_on_max_dev_f1[0],
+		logging.info('Test result on max dev F1 (P,R,F1): {:.6f}\t{:.6f}\t{:.6f}' .format(test_result_on_max_dev_f1[0],
 																			test_result_on_max_dev_f1[1],
 																			test_result_on_max_dev_f1[2]))
