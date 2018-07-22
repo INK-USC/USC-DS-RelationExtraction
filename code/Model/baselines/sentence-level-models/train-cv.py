@@ -1,7 +1,5 @@
 '''
-Training script for Position-Aware LSTM for Relation Extraction
-Author: Maosen Zhang
-Email: zhangmaosen@pku.edu.cn
+Training script with ramdom splitting dev set
 '''
 __author__ = 'Maosen'
 import torch
