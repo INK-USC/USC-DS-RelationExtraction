@@ -20,7 +20,7 @@ class CNN(nn.Module):
 			assert vocab_size, emb_dim == word_emb.shape
 			self.word_emb = nn.Embedding(vocab_size, emb_dim, padding_idx=utils.PAD_ID, _weight=torch.from_numpy(word_emb).float())
 			# self.word_emb.weight.data.copy_(torch.from_numpy(word_emb))
-			self.word_emb.weight.requires_grad = False
+			# self.word_emb.weight.requires_grad = False
 		else:
 			self.word_emb = nn.Embedding(vocab_size, emb_dim, padding_idx=utils.PAD_ID)
 			self.word_emb.weight.data[1:, :].uniform_(-1.0, 1.0)

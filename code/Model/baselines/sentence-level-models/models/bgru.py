@@ -20,7 +20,7 @@ class BGRU(nn.Module):
 			assert vocab_size, emb_dim == word_emb.shape
 			self.word_emb = nn.Embedding(vocab_size, emb_dim, padding_idx=utils.PAD_ID, _weight=torch.from_numpy(word_emb).float())
 			# self.word_emb.weight.data.copy_(torch.from_numpy(word_emb))
-			self.word_emb.weight.requires_grad = False
+			# self.word_emb.weight.requires_grad = False
 		else:
 			self.word_emb = nn.Embedding(vocab_size, emb_dim, padding_idx=utils.PAD_ID)
 			self.word_emb.weight.data[1:, :].uniform_(-1.0, 1.0)
@@ -76,6 +76,7 @@ class BGRU(nn.Module):
 
 		# input = torch.cat([emb_words, emb_pos, emb_ner], dim=2)
 		input = torch.cat([emb_words, emb_subj_pos, emb_obj_pos], dim=2).contiguous()
+		input = self.dropout(input)
 
 		input = nn.utils.rnn.pack_padded_sequence(input, seq_lens, batch_first=True)
 		output, hn = self.gru(input)  # default: zero state
@@ -84,6 +85,7 @@ class BGRU(nn.Module):
 		output = self.dropout(output)
 
 		final_hidden = torch.cat([hn[-2], hn[-1]], dim=1)
+		final_hidden = self.dropout(final_hidden)
 
 		logits = self.flinear(final_hidden)
 
