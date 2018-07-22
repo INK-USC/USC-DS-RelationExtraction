@@ -1,8 +1,3 @@
-'''
-Bi-GRU model for Relation Extraction
-Author: Maosen Zhang
-Email: zhangmaosen@pku.edu.cn
-'''
 __author__ = 'Maosen'
 import torch
 import torch.nn as nn
