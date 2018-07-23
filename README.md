@@ -50,6 +50,7 @@ Position-Aware LSTM ([Zhang et al., 2017](http://www.aclweb.org/anthology/D17-10
 CoType-RM ([Ren et al., 2017](https://arxiv.org/pdf/1610.08763v1.pdf)) | 0.303 | 0.407 | 0.347
 **CoType** ([Ren et al., 2017](https://arxiv.org/pdf/1610.08763v1.pdf)) | 0.348 | 0.406 | **0.369**
 
+**Note**: for models that trained on sentences annotated with a single label (HypeNet, CNN/PCNN, LSTM, SDP/PA-LSTMs, Bi-GRU), we form one training instance for each sentence-label pair based on their DS-annotated data.
 
 ## Usage
 
