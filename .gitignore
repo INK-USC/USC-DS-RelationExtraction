@@ -6,4 +6,4 @@
 DataProcessor/stanford-corenlp-python/
 Intermediate/*
 Results/*
-Data/BBN/*
+Data/*
