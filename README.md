@@ -27,7 +27,7 @@ For evaluating on sentence-level extraction, we [processed](https://github.com/s
    
    * **Wiki-KBP**: the training corpus contains 1.5M sentences sampled from 780k [Wikipedia articles](https://github.com/xiaoling/figer) ([Ling & Weld, 2012](http://xiaoling.github.io/pubs/ling-aaai12.pdf)) plus ~7,000 sentences from 2013 KBP corpus. Test data consists of 14k system-labeled sentences from [2013 KBP slot filling](http://surdeanu.info/kbp2013/) assessment results. It has 7 relation types and 126 entity types after filtering of numeric value relations. ([Download](https://drive.google.com/drive/folders/0B--ZKWD8ahE4RjFLUkVQTm93WVU?usp=sharing))
 
-Please put the data files in corresponding subdirectories under `CoType/data/source`
+Please put the data files in corresponding subdirectories under `data/source`
 
 
 
@@ -63,7 +63,7 @@ We will take Ubuntu for example.
 $ pip install pexpect ujson tqdm
 ```
 
-* [stanford coreNLP 3.7.0](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/stanfordnlp/stanza). Please put the library under `CoType/code/DataProcessor/'.
+* [stanford coreNLP 3.7.0](http://stanfordnlp.github.io/CoreNLP/) and its [python wrapper](https://github.com/stanfordnlp/stanza). Please put the library under `code/DataProcessor/'.
 
 ```
 $ cd code/DataProcessor/
@@ -77,11 +77,11 @@ $ unzip stanford-corenlp-full-2016-10-31.zip
 
 We have included compilied binaries. If you need to re-compile `retype.cpp` under your own g++ environment
 ```
-$ cd CoType/code/Model/retype; make
+$ cd code/Model/retype; make
 ```
 
 ### Default Run
-Run CoType for the task of *Relation Extraction* on the Wiki-KBP dataset
+As an example, we show how to run CoType on the Wiki-KBP dataset
 
 Start the Stanford corenlp server for the python wrapper.
 ```
@@ -125,7 +125,7 @@ $ python code/Evaluation/convertPredictionToJson.py $Data 0.0
 Code for producing the JSON files from a raw corpus for running CoType and baseline models is [here](https://github.com/shanzhenren/StructMineDataPipeline).
 
 ## Baselines
-You can find our implementation of some recent relation extraction models under the [Code/Model/](https://github.com/shanzhenren/CoType/tree/master/code/Model) directory.
+You can find our implementation of some recent relation extraction models under the [Code/Model/](https://github.com/shanzhenren/DS-RelationExtraction/tree/master/code/Model) directory.
 
 ## References
 * Xiang Ren, Zeqiu Wu, Wenqi He, Meng Qu, Clare R. Voss, Heng Ji, Tarek F. Abdelzaher, Jiawei Han. "[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763.pdf)", WWW 2017.
