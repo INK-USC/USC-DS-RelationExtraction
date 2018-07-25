@@ -10,7 +10,7 @@ This repository puts together recent models and data sets for **sentence-level r
 - [Usage](#usage)
 - [Customized Run](#customized-run)
 - [Baselines](#baselines)
-- [References](#reference)
+- [References](#references)
 - [Contributors](#contributors)
 
 ## Blog Posts
