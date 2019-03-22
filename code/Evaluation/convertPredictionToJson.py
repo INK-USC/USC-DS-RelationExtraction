@@ -2,7 +2,7 @@ import sys
 import json
 
 data = sys.argv[1]
-predictionFile = 'data/results/'+data+'/rm/prediction_emb_retypeRm_cosine.txt'
+predictionFile = 'data/results/'+data+'/rm/prediction_emb_retype_cosine.txt'
 testJson = 'data/intermediate/'+data+'/rm/test_new.json'
 predictionJson = 'data/results/'+data+'/rm/prediction.json'
 mentionMapFile = 'data/intermediate/'+data+'/rm/mention.txt'
