@@ -1,6 +1,8 @@
 # USC Distantly-supervised Relation Extraction System
 This repository puts together recent models and data sets for **sentence-level relation extraction** *using knowledge bases (i.e., distant supervision)*. In particular, it contains the source code for WWW'17 paper *[CoType: Joint Extraction of Typed Entities and Relations with Knowledge Bases](https://arxiv.org/pdf/1610.08763.pdf)*.
 
+**Please also check out our new repository on [handling shifted label distribution in distant supervision](https://github.com/INK-USC/shifted-label-distribution)**
+
 **Task**: Given a text corpus with entity mentions *detected* and *heuristically labeled* using distant supervision, the task aims to identify relation types/labels between a pair of entity mentions based on the sentence context where they co-occur.
 
 ## Quick Start
